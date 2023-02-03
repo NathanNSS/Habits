@@ -9,5 +9,5 @@ app.register(cors)
 app.register(AppRouter)
 
 
-
-app.listen({port}, () => console.log(`API rodando na porta ${port}`))
+// Adição de ( host:"0.0.0.0" ) para funcionar no android no React Native
+app.listen({port, host:"0.0.0.0"}, () => console.log(`API rodando na porta ${port}`))
