@@ -31,6 +31,11 @@ export async function AppRouter(app: FastifyInstance) {
             }
         })
 
+        //Fake Delay
+        await (() => new Promise<void>((resolve, reject) => {
+            setTimeout(resolve,500)
+        }))()
+
         return res.send("Ok")
     })
 
@@ -66,17 +71,23 @@ export async function AppRouter(app: FastifyInstance) {
             },
         });
 
-        const completehabits = day?.dayHabits.map(habit => {
+        const completedHabits = day?.dayHabits.map(habit => {
             return habit.habit_id
-        })
+        }) ?? []
+
+         //Fake Delay
+         await (() => new Promise<void>((resolve, reject) => {
+            setTimeout(resolve,500)
+        }))()
 
         return {
             habitsOfDay,
-            completehabits
+            completedHabits
         }
     })
 
-    app.patch("/habit/:id/toggle", async (req, res) => {
+    app.patch("/habits/:id/toggle", async (req, res) => {
+        
         const bodyRequestSchema = z.object({
             id: z.string().uuid()
         })
@@ -122,7 +133,12 @@ export async function AppRouter(app: FastifyInstance) {
                 }
             })
         }
-
+        
+        //Fake Delay
+        await (() => new Promise<void>((resolve, reject) => {
+            setTimeout(resolve,500)
+        }))()
+        
         res.status(200).send("Ok")
     })
 
